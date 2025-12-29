@@ -8,7 +8,8 @@ const ForgotPassword = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        "http://localhost:5000/api/forgot-password",
+        // "http://localhost:5000/api/forgot-password",
+        "https://tasktracker-backend-l131.onrender.com/api/forgot-password",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

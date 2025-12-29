@@ -18,7 +18,8 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchTodos = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/todos", {
+        // const res = await fetch("http://localhost:5000/api/todos", {
+        const res = await fetch("https://tasktracker-backend-l131.onrender.com/api/todos", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();

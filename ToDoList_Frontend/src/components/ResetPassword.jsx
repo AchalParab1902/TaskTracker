@@ -16,7 +16,8 @@ const ResetPassword = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/reset-password", {
+      // const response = await fetch("http://localhost:5000/api/reset-password", {
+      const response = await fetch("https://tasktracker-backend-l131.onrender.com/api/reset-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ token, password, confirmPassword }),

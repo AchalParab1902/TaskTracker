@@ -23,7 +23,8 @@ const TodoApp = () => {
 
       try {
         const res = await fetch(
-          `http://localhost:5000/api/todos?userEmail=${encodeURIComponent(
+          // `http://localhost:5000/api/todos?userEmail=${encodeURIComponent(
+          `https://tasktracker-backend-l131.onrender.com/api/todos?userEmail=${encodeURIComponent(
             userEmail
           )}`,
           {
@@ -63,7 +64,8 @@ const TodoApp = () => {
   );
 
   try {
-    const res = await fetch(`http://localhost:5000/api/todos-update/${id}`, {
+    // const res = await fetch(`http://localhost:5000/api/todos-update/${id}`, {
+    const res = await fetch(`https://tasktracker-backend-l131.onrender.com/api/todos-update/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -90,7 +92,8 @@ const TodoApp = () => {
     const userEmail = localStorage.getItem("userEmail"); 
 
     try {
-      const res = await fetch("http://localhost:5000/api/todos", {
+      // const res = await fetch("http://localhost:5000/api/todos", {
+      const res = await fetch("https://tasktracker-backend-l131.onrender.com/api/todos", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -123,7 +126,8 @@ const TodoApp = () => {
 
   const updateTask = async (id, newName) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/todos-update/${id}`, {
+      // const res = await fetch(`http://localhost:5000/api/todos-update/${id}`, {
+      const res = await fetch(`https://tasktracker-backend-l131.onrender.com/api/todos-update/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -142,7 +146,8 @@ const TodoApp = () => {
 
   const deleteTask = async (id) => {
     try {
-      await fetch(`http://localhost:5000/api/todos/${id}`, {
+      // await fetch(`http://localhost:5000/api/todos/${id}`, {
+      await fetch(`https://tasktracker-backend-l131.onrender.com/api/todos/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
