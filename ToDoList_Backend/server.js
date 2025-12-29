@@ -19,7 +19,7 @@ app.use(cookieParser());
 
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: ["http://localhost:3000", "https://tasktracker-frontend-2c9q.onrender.com", "http://localhost:5173"],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
