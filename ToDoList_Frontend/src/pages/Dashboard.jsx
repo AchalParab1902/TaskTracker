@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import { FiCheckCircle, FiClock, FiAlertTriangle, FiBarChart2,} from "react-icons/fi";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, PieChart, Pie, Cell, Legend, ResponsiveContainer,} from "recharts";
+import { FiCheckCircle, FiClock, FiAlertTriangle, FiBarChart2, } from "react-icons/fi";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, PieChart, Pie, Cell, Legend, ResponsiveContainer, } from "recharts";
 import { toast } from "react-toastify";
 
 const Dashboard = () => {
@@ -10,7 +10,7 @@ const Dashboard = () => {
   const [taskTitle, setTaskTitle] = useState("");
   const [taskDueDate, setTaskDueDate] = useState("");
 
-  const [priority, setPriority] = useState("Medium"); 
+  const [priority, setPriority] = useState("Medium");
   const token = localStorage.getItem("accessToken");
   const userEmail = localStorage.getItem("userEmail");
   const userName = localStorage.getItem("userName");
@@ -47,7 +47,7 @@ const Dashboard = () => {
 
 
 
-  
+
   const handleSaveTask = async () => {
     if (!taskTitle.trim() || !taskDueDate) {
       toast.warning("Please enter both task title and due date.");
@@ -69,7 +69,7 @@ const Dashboard = () => {
         body: JSON.stringify({
           name: taskTitle,
           dueDate: taskDueDate,
-          userEmail, 
+          userEmail,
           priority,
         }),
       });
@@ -82,7 +82,7 @@ const Dashboard = () => {
         return;
       }
 
-     
+
       setTodos((prev) => [...prev, data]);
       setTaskTitle("");
       setTaskDueDate("");
@@ -94,30 +94,30 @@ const Dashboard = () => {
     }
   };
 
- 
+
   const completed = todos.filter((t) => t.completed).length;
   const pending = todos.filter((t) => !t.completed && !t.overdue).length;
   const overdue = todos.filter((t) => t.overdue).length;
   const total = todos.length;
   const completionRate = total === 0 ? 0 : Math.round((completed / total) * 100);
 
- 
-const weeklyData = [
-  { day: "Mon", completed: 0 },
-  { day: "Tue", completed: 0 },
-  { day: "Wed", completed: 0 },
-  { day: "Thu", completed: 0 },
-  { day: "Fri", completed: 0 },
-  { day: "Sat", completed: 0 },
-  { day: "Sun", completed: 0 },
-];
 
-todos.forEach(todo => {
-  if (todo.completed && todo.completedAt) {
-    const dayIndex = new Date(todo.completedAt).getDay(); 
-    weeklyData[dayIndex === 0 ? 6 : dayIndex - 1].completed++;
-  }
-});
+  const weeklyData = [
+    { day: "Mon", completed: 0 },
+    { day: "Tue", completed: 0 },
+    { day: "Wed", completed: 0 },
+    { day: "Thu", completed: 0 },
+    { day: "Fri", completed: 0 },
+    { day: "Sat", completed: 0 },
+    { day: "Sun", completed: 0 },
+  ];
+
+  todos.forEach(todo => {
+    if (todo.completed && todo.completedAt) {
+      const dayIndex = new Date(todo.completedAt).getDay();
+      weeklyData[dayIndex === 0 ? 6 : dayIndex - 1].completed++;
+    }
+  });
 
 
 
@@ -132,10 +132,10 @@ todos.forEach(todo => {
     <div className="min-h-screen bg-[#0a0f1f] text-white">
       <Navbar onAddTaskClick={() => setShowModal(true)} />
 
-     
+
       {showModal && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
-          <div className="bg-[#161b22] p-8 rounded-2xl w-[400px] shadow-lg text-white relative">
+          <div className="bg-[#161b22] p-8 rounded-2xl w-full max-w-md mx-4 shadow-lg text-white relative">
             <button
               onClick={() => setShowModal(false)}
               className="absolute top-3 right-4 text-gray-400 hover:text-white text-xl"
@@ -164,20 +164,19 @@ todos.forEach(todo => {
             ></textarea>
 
             <label className="block mb-2 text-sm text-gray-400">Priority</label>
-<div className="flex gap-3 mb-4">
-  {["Low","Medium","High"].map((p) => (
-    <button
-      key={p}
-      type="button"
-      onClick={() => setPriority(p)}
-      className={`px-4 py-2 rounded-lg border ${
-        priority === p ? "bg-blue-600 text-white border-blue-600" : "bg-[#0f172a] text-white border-gray-600"
-      }`}
-    >
-      {p}
-    </button>
-  ))}
-</div>
+            <div className="flex gap-3 mb-4">
+              {["Low", "Medium", "High"].map((p) => (
+                <button
+                  key={p}
+                  type="button"
+                  onClick={() => setPriority(p)}
+                  className={`px-4 py-2 rounded-lg border ${priority === p ? "bg-blue-600 text-white border-blue-600" : "bg-[#0f172a] text-white border-gray-600"
+                    }`}
+                >
+                  {p}
+                </button>
+              ))}
+            </div>
 
             <label className="block mb-2 text-sm text-gray-400">Due Date</label>
             <input
@@ -202,12 +201,12 @@ todos.forEach(todo => {
           <div>
             <h1 className="text-4xl font-bold">Dashboard</h1>
             <p className="text-white/70 mt-1 text-lg">
-  Welcome back, {userName || userEmail?.split("@")[0]} 
-</p>
+              Welcome back, {userName || userEmail?.split("@")[0]}
+            </p>
           </div>
         </div>
 
-      
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
           <StatCard
             title="Total Completed"
@@ -235,7 +234,7 @@ todos.forEach(todo => {
           />
         </div>
 
-       
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-12">
           <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
             <h3 className="text-xl font-semibold mb-4">
@@ -244,7 +243,7 @@ todos.forEach(todo => {
             <ResponsiveContainer width="100%" height={250}>
               <BarChart data={weeklyData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#2d3748" />
-               <XAxis dataKey="day" stroke="#9ca3af" />
+                <XAxis dataKey="day" stroke="#9ca3af" />
 
                 <YAxis stroke="#9ca3af" />
                 <Tooltip
@@ -282,7 +281,7 @@ todos.forEach(todo => {
                   contentStyle={{
                     backgroundColor: "white",
                     border: "1px solid #475569",
-                 
+
                   }}
                 />
                 <Legend />
@@ -295,9 +294,9 @@ todos.forEach(todo => {
           </div>
         </div>
 
-       
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-12">
-         
+
           <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
             <h3 className="text-xl font-semibold mb-4">Due Soon</h3>
             {todos
@@ -336,7 +335,7 @@ todos.forEach(todo => {
             )}
           </div>
 
-         
+
           <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
             <h3 className="text-xl font-semibold mb-4 text-red-400">Overdue</h3>
             {todos

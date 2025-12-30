@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
+import config from "../config";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -31,8 +32,7 @@ const Register = () => {
       return;
     }
     try {
-      // const response = await fetch("http://localhost:5000/api/register", {
-      const response = await fetch("https://tasktracker-backend-l131.onrender.com/api/register", {
+      const response = await fetch(`${config.API_BASE_URL}/api/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password, confirmPassword }),
@@ -57,7 +57,7 @@ const Register = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#0A0F1F] text-white">
-      <div className="bg-white/10 backdrop-blur-lg border border-white/20 shadow-2xl rounded-3xl p-8 w-[400px] text-center">
+      <div className="bg-white/10 backdrop-blur-lg border border-white/20 shadow-2xl rounded-3xl p-8 w-full max-w-sm mx-4 text-center">
         <h1 className="text-3xl font-bold mb-6">Create Account ✨</h1>
         <p className="text-white/60 mb-6">
           Register to start managing your tasks

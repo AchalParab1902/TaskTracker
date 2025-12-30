@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
+import config from "../config";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -13,8 +14,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      // const response = await fetch("http://localhost:5000/api/login", {
-      const response = await fetch("https://tasktracker-backend-l131.onrender.com/api/login", {
+      const response = await fetch(`${config.API_BASE_URL}/api/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include", // needed for cookies
@@ -41,7 +41,7 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#0A0F1F] text-white">
-      <div className="bg-white/10 backdrop-blur-lg border border-white/20 shadow-2xl rounded-3xl p-8 w-[400px] text-center">
+      <div className="bg-white/10 backdrop-blur-lg border border-white/20 shadow-2xl rounded-3xl p-8 w-full max-w-sm mx-4 text-center">
         <h1 className="text-3xl font-bold mb-6">Welcome Back 👋</h1>
         <p className="text-white/60 mb-6">Login to access your To-Do list</p>
 

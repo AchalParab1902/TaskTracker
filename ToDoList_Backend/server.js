@@ -13,6 +13,10 @@ const crypto = require("crypto");
 const nodemailer = require("nodemailer");
 // app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.send("API is running...");
+});
+
 
 app.use(express.json());
 app.use(cookieParser());
