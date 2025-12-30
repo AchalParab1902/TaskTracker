@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import { FiCheckCircle, FiClock, FiAlertTriangle, FiBarChart2, } from "react-icons/fi";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, PieChart, Pie, Cell, Legend, ResponsiveContainer, } from "recharts";
 import { toast } from "react-toastify";
+import config from "../config";
 
 const Dashboard = () => {
   const [todos, setTodos] = useState([]);
@@ -19,7 +20,7 @@ const Dashboard = () => {
     const fetchTodos = async () => {
       try {
         // const res = await fetch("http://localhost:5000/api/todos", {
-        const res = await fetch("https://tasktracker-backend-l131.onrender.com/api/todos", {
+        const res = await fetch(`${config.API_BASE_URL}/api/todos`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
@@ -60,7 +61,7 @@ const Dashboard = () => {
     }
 
     try {
-      const res = await fetch("https://tasktracker-backend-l131.onrender.com/api/todos", {
+      const res = await fetch(`${config.API_BASE_URL}/api/todos`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
