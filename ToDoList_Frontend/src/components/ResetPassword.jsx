@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import api from "../api";
+import Loader from "./Loader";
 
 const ResetPassword = () => {
   const { token } = useParams();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleReset = async (e) => {
@@ -15,24 +18,27 @@ const ResetPassword = () => {
       return;
     }
 
+    setLoading(true);
     try {
-      // const response = await fetch("http://localhost:5000/api/reset-password", {
-      const response = await fetch("https://tasktracker-backend-l131.onrender.com/api/reset-password", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token, password, confirmPassword }),
+      const response = await api.post("/api/reset-password", {
+        token,
+        password,
+        confirmPassword
       });
-      const data = await response.json();
-      toast.info(data.message);
-      if (response.ok) navigate("/");
+      toast.info(response.data.message);
+      navigate("/");
     } catch (err) {
       console.error(err);
-      toast.error("Error resetting password");
+      const message = err.response?.data?.message || "Error resetting password";
+      toast.error(message);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#0A0F1F] text-white">
+      {loading && <Loader fullPage={true} />}
       <div className="bg-white/10 backdrop-blur-lg border border-white/20 shadow-2xl rounded-3xl p-8 w-[400px] text-center">
         <h1 className="text-3xl font-bold mb-6">Reset Password</h1>
         <form onSubmit={handleReset} className="flex flex-col gap-4">
@@ -54,9 +60,10 @@ const ResetPassword = () => {
           />
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-full py-3 mt-4 transition"
+            disabled={loading}
+            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-full py-3 mt-4 transition flex items-center justify-center gap-2"
           >
-            Reset Password
+            {loading ? <Loader /> : "Reset Password"}
           </button>
         </form>
       </div>

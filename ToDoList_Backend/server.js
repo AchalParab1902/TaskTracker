@@ -29,7 +29,12 @@ app.use(cookieParser());
 
 
 const corsOptions = {
-  origin: ["http://localhost:3000", "https://tasktracker-frontend-2c9q.onrender.com", "http://localhost:5173"],
+  origin: [
+    "http://localhost:3000", 
+    "http://localhost:5173",
+    "https://tasktracker-frontend-2c9q.onrender.com",
+    process.env.FRONTEND_URL
+  ].filter(Boolean),
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
@@ -291,7 +296,8 @@ app.post("/api/forgot-password", async (req, res) => {
       },
     });
 
-    const resetLink = `http://localhost:3000/reset-password/${resetToken}`;
+    const frontendUrl = process.env.FRONTEND_URL || "https://tasktracker-frontend-2c9q.onrender.com";
+    const resetLink = `${frontendUrl}/reset-password/${resetToken}`;
 
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
