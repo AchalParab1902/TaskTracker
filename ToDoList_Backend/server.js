@@ -17,6 +17,12 @@ app.get("/", (req, res) => {
   res.send("API is running...");
 });
 
+// Request Logging Middleware
+app.use((req, res, next) => {
+  console.log(`[REQUEST] ${req.method} ${req.url}`);
+  console.log(`[ORIGIN] ${req.headers.origin}`);
+  next();
+});
 
 app.use(express.json());
 app.use(cookieParser());
